@@ -18,8 +18,10 @@ rename_columns = {
 }
 
 clean_users_df = raw_users_df.drop(drop_columns, axis=1).rename(rename_columns, axis=1)
-print(clean_users_df.columns)
-print(clean_users_df.head())
+
+raw_sales_certs_df = pd.read_csv("Personal/raw_sales_certs.csv")
+clean_sales_certs_df = raw_sales_certs_df.assign(**{"Certification Type": "Sales"})
+
 
 # if __name__ == "__main__":
 #     pass

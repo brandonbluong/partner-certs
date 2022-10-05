@@ -12,6 +12,9 @@ rename_columns = {
     "Job Title": "Title",
     "Account": "Company",
     "Account | SFDC Account Owner Name for CAM Name": "CAM Manager",
+    "Mailing City": "City",
+    "Mailing State": "US State",
+    "Mailing Country": "Country",
 }
 
 clean_users_df = raw_users_df.drop(drop_columns, axis=1).rename(rename_columns, axis=1)

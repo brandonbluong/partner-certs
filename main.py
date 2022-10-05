@@ -8,7 +8,13 @@ drop_columns = [
     "Last Login - Timestamp",
 ]
 
-clean_users_df = raw_users_df.drop(drop_columns, axis=1)
+rename_columns = {
+    "Job Title": "Title",
+    "Account": "Company",
+    "Account | SFDC Account Owner Name for CAM Name": "CAM Manager",
+}
+
+clean_users_df = raw_users_df.drop(drop_columns, axis=1).rename(rename_columns, axis=1)
 print(clean_users_df.columns)
 print(clean_users_df.head())
 

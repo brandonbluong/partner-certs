@@ -1,4 +1,6 @@
+import personal.snyk_data as t3
 import pandas as pd
+
 
 # Clean raw_users
 raw_users_df = pd.read_csv("Personal/raw_users.csv")
@@ -39,6 +41,11 @@ clean_technical_certs_df = raw_technical_certs_df.rename(
 # Combine sales and tech clean dfs
 total_certs_df = pd.concat([clean_sales_certs_df, clean_technical_certs_df])
 
+# Convert passed date column to datetime
+total_certs_df["Passed Date"] = pd.to_datetime(
+    total_certs_df["Passed Date"], format="%m/%d/%Y", infer_datetime_format=True
+)
+
 # Merge total_certs with clean_users with a left join
 left_join_keys = ["User", "Account"]
 right_join_keys = ["Full Name", "Company"]
@@ -64,7 +71,24 @@ merged_certs_df = merged_certs_df[
 
 print(total_certs_df.shape, merged_certs_df.shape)
 print(merged_certs_df.columns)
+print(merged_certs_df.dtypes)
 
 
-# # if __name__ == "__main__":
-# #     pass
+# # merged_certs_df would be exported as excel file for chris garcia
+# # merged_certs_df.to_excel("test_excel_for_chris.xlsx")
+# # print("Successfully exported")
+
+# # For NA CAM Managers
+# na_certs_df = merged_certs_df
+
+# # Filter out any certs before 8/1/2022 (Q3 2022)
+# na_certs_df = na_certs_df[na_certs_df["Passed Date"] > "2022-08-01"]
+
+# print(na_certs_df.shape, merged_certs_df.shape)
+
+# # na_certs_df.to_excel("test_excel_for_na_managers.xlsx")
+
+# print(t3.cam_manager)
+
+# # # if __name__ == "__main__":
+# # #     pass

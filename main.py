@@ -1,4 +1,4 @@
-import personal.snyk_data as t3
+import personal.snyk_data
 import pandas as pd
 
 
@@ -69,26 +69,26 @@ merged_certs_df = merged_certs_df[
     ]
 ]
 
-print(total_certs_df.shape, merged_certs_df.shape)
-print(merged_certs_df.columns)
-print(merged_certs_df.dtypes)
+
+# merged_certs_df would be exported as excel file for chris garcia
+merged_certs_df.to_excel("test_excel_for_chris.xlsx")
+print("Successfully exported")
+
+# For NA CAM Managers
+na_certs_df = merged_certs_df
+
+# Filter out any certs before 7/1/2022 (Q3 2022)
+na_certs_df = na_certs_df[na_certs_df["Passed Date"] >= "2022-07-01"]
+
+# Filter out any certs not related to any CAMs
+na_certs_df = na_certs_df[na_certs_df["CAM Manager"].isin(personal.snyk_data.cams)]
+# Filter out any certs from Snyk Portal Internal User account
+na_certs_df = na_certs_df[~na_certs_df["Company"].isin(personal.snyk_data.accounts)]
 
 
-# # merged_certs_df would be exported as excel file for chris garcia
-# # merged_certs_df.to_excel("test_excel_for_chris.xlsx")
-# # print("Successfully exported")
+na_certs_df.to_excel("test_excel_for_na_managers.xlsx")
+print("export to na managers success")
 
-# # For NA CAM Managers
-# na_certs_df = merged_certs_df
 
-# # Filter out any certs before 8/1/2022 (Q3 2022)
-# na_certs_df = na_certs_df[na_certs_df["Passed Date"] > "2022-08-01"]
-
-# print(na_certs_df.shape, merged_certs_df.shape)
-
-# # na_certs_df.to_excel("test_excel_for_na_managers.xlsx")
-
-# print(t3.cam_manager)
-
-# # # if __name__ == "__main__":
-# # #     pass
+# # if __name__ == "__main__":
+# #     pass
